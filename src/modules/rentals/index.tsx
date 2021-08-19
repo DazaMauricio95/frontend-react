@@ -1,21 +1,24 @@
 import { withRouter } from "react-router-dom";
-import {
-  Grid,
-  IconButton,
-  Tooltip,
-  CircularProgress,
-  Typography,
-} from "@material-ui/core";
+import { Grid, CircularProgress, Typography } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import { Pagination } from "@material-ui/lab";
-import { Add as AddIcon } from "@material-ui/icons";
 import UseStyles from "../../styles";
 import { UseHookRentals } from "../../hooks";
+import { useEffect } from "react";
 
-const index = () => {
+const RentalsModules = () => {
   const classes = UseStyles();
-  const { responseRentals, columns, loadingRental, numPage, handleNextPage } =
-    UseHookRentals();
+  const {
+    responseRentals,
+    columns,
+    loadingRental,
+    numPage,
+    handleNextPage,
+    callbackRentals,
+  } = UseHookRentals();
+  useEffect(() => {
+    callbackRentals();
+  }, [callbackRentals]);
   return (
     <Grid container className={classes.rootPage}>
       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -31,12 +34,15 @@ const index = () => {
           options={{
             responsive: "standard",
             filter: false,
+            print: false,
+            download: false,
+            viewColumns: false,
             filterType: "dropdown",
             pagination: false,
             searchPlaceholder: "Buscar...",
             fixedHeader: true,
             fixedSelectColumn: false,
-            tableBodyHeight: 600 + "px",
+            tableBodyHeight: 450 + "px",
             selectableRows: undefined,
             textLabels: {
               body: {
@@ -51,22 +57,6 @@ const index = () => {
               },
               toolbar: {
                 search: "Buscar",
-                downloadCsv: "Descargar CSV",
-                print: "Imprimir",
-                viewColumns: "Ver Columnas",
-                filterTable: "Filtrar",
-              },
-              viewColumns: {
-                title: "Ver Columnas",
-                titleAria: "Mostrar/Ocultar columnas de tabla",
-              },
-              selectedRows: {
-                text: "fila(s) seleccionada",
-                delete: "Eliminar",
-                deleteAria: "Eliminar filas seleccionadas",
-              },
-              filter: {
-                title: "filtrar",
               },
               pagination: {
                 rowsPerPage: "Filas por página",
@@ -75,18 +65,6 @@ const index = () => {
                 next: "Siguiente Página",
                 jumpToPage: "Saltar a la página",
               },
-            },
-            customToolbar: () => {
-              return (
-                <Tooltip title="Alquelar libro">
-                  <IconButton
-                    size="medium"
-                    // onClick={handleOpenFullMdl}
-                  >
-                    <AddIcon />
-                  </IconButton>
-                </Tooltip>
-              );
             },
             customFooter: () => {
               return (
@@ -120,4 +98,4 @@ const index = () => {
   );
 };
 
-export default withRouter(index);
+export default withRouter(RentalsModules);

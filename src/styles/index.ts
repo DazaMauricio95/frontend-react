@@ -99,7 +99,16 @@ export default makeStyles((theme: Theme) => ({
     marginTop: 145,
     marginLeft: 8,
   },
-
+  avatarImgRegister: {
+    // width: 150px;
+    // height: 150px;
+    // margin-top: 45px;
+    // margin-left: 8px;
+    width: 150,
+    height: 150,
+    marginTop: 45,
+    marginLeft: 8,
+  },
   containerLayout: {
     overflow: "hidden",
   },
@@ -217,7 +226,7 @@ export default makeStyles((theme: Theme) => ({
     [theme.breakpoints.down("sm")]: {
       width: drawerWidth,
     },
-    // marginTop: theme.spacing(8),
+    marginTop: theme.spacing(8),
   },
   mobileBackButton: {
     marginTop: theme.spacing(0.5),
@@ -233,6 +242,9 @@ export default makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(8),
     [theme.breakpoints.only("xs")]: {
       marginTop: 0,
+    },
+    [theme.breakpoints.only("sm")]: {
+      marginTop: theme.spacing(1),
     },
     height: theme.spacing(30),
     padding: 10, //25
@@ -308,5 +320,13 @@ export default makeStyles((theme: Theme) => ({
   },
   dividerFullWidth: {
     margin: `5px 0 0 ${theme.spacing(2)}px`,
+  },
+  badgeDanger: {
+    backgroundColor: theme.palette.error.main,
+    color: "white",
+  },
+  badgeSuccess: {
+    backgroundColor: "#3ea046",
+    color: "white",
   },
 }));

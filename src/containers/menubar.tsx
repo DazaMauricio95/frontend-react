@@ -50,7 +50,7 @@ const TheMenuBar = ({
             <HomeIcon />
           ) : nameMenu === "Libros" ? (
             <BookIcon />
-          ) : nameMenu === "Alquiler" ? (
+          ) : nameMenu === "Alquileres" ? (
             <LibraryIcon />
           ) : (
             <CategoryIcon />

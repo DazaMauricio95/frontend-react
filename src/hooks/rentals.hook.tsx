@@ -1,11 +1,14 @@
 import { FormikHelpers } from "formik";
+import { Chip } from "@material-ui/core";
 import { MUIDataTableColumnDef } from "mui-datatables";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { stateSelector, typeValuesRentals } from "../@types";
 import { actionsRentals } from "../redux/actions";
+import UseStyles from "../styles";
 export const UseHookRentals = (idBook?: number | null) => {
+  const classes = UseStyles();
   const dispatch = useDispatch();
   const {
     loadingRental,
@@ -15,27 +18,57 @@ export const UseHookRentals = (idBook?: number | null) => {
     messageRental,
   } = useSelector((state: stateSelector) => state.rentalsReducer);
   const [numPage, setNumPage] = useState<number>(1);
-  // IdRent: number
-  // Fkidbook: number
-  // Fkiduser: number
-  // rentDate: string
-  // returnDate: string
-  // statusRent: number
-  // created_at: string
-  // updated_at: string
-  // nameUser: string
-  // nameBook: string
-  // author: string
-  // publicationDate: string
+
+  const callbackRentals = useCallback(
+    async () => dispatch(actionsRentals.paginationRentals(numPage)),
+    [dispatch, numPage]
+  );
+
   const columns: MUIDataTableColumnDef[] = [
     {
       name: "nameUser",
-      label: "Usuario Prestamo",
+      label: "Lector",
+    },
+    {
+      name: "statusRent",
+      label: "Estado",
       options: {
-        display: false,
-        filter: false,
-        viewColumns: false,
+        customBodyRender: (value, tableMeta) => {
+          if (value === 1) {
+            return (
+              <Chip
+                label="En alquiler"
+                className={classes.badgeDanger}
+                variant="outlined"
+              />
+            );
+          } else {
+            return (
+              <Chip
+                label="Devuelto"
+                className={classes.badgeSuccess}
+                variant="outlined"
+              />
+            );
+          }
+        },
       },
+    },
+    {
+      name: "nameBook",
+      label: "Libro",
+    },
+    {
+      name: "author",
+      label: "Autor",
+    },
+    {
+      name: "rentDate",
+      label: "Fecha de alquiler",
+    },
+    {
+      name: "returnDate",
+      label: "Fecha de devolución",
     },
   ];
 
@@ -89,5 +122,6 @@ export const UseHookRentals = (idBook?: number | null) => {
     formDataRent,
     formSchemaRent,
     formAddRent,
+    callbackRentals,
   };
 };

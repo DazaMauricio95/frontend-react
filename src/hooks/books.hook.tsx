@@ -3,7 +3,7 @@ import { Box, IconButton, Chip, Tooltip } from "@material-ui/core";
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
-  LibraryBooks as LibraryIcon,
+  Spellcheck as SpellIcon,
 } from "@material-ui/icons";
 import * as Yup from "yup";
 import { ChangeEvent, useCallback, useState } from "react";
@@ -12,8 +12,9 @@ import { stateSelector, typeValuesBook, typeDataBook } from "../@types";
 import { actionsBooks } from "../redux/actions";
 import { modelUser } from "../models";
 import { FormikHelpers } from "formik";
-
+import UseStyles from "../styles";
 export const UseHookBooks = () => {
+  const classes = UseStyles();
   const dispatch = useDispatch();
   const { loadingBook, disabledBook, responseBooks, dataBooks, messageBooks } =
     useSelector((state: stateSelector) => state.booksReducer);
@@ -68,10 +69,20 @@ export const UseHookBooks = () => {
         viewColumns: false,
         customBodyRender: (value, tableMeta) => {
           if (value === 1) {
-            return <Chip label="Libre" color="primary" variant="outlined" />;
+            return (
+              <Chip
+                label="Libre"
+                className={classes.badgeSuccess}
+                variant="outlined"
+              />
+            );
           } else {
             return (
-              <Chip label="Alquilado" color="secondary" variant="outlined" />
+              <Chip
+                label="Alquilado"
+                className={classes.badgeDanger}
+                variant="outlined"
+              />
             );
           }
         },
@@ -122,7 +133,7 @@ export const UseHookBooks = () => {
                       handleOpenModal("rent");
                     }}
                   >
-                    <LibraryIcon fontSize="small" />
+                    <SpellIcon fontSize="small" />
                   </IconButton>
                 </Tooltip>
               )}

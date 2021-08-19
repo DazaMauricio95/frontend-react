@@ -1,7 +1,7 @@
 import { FormikHelpers } from "formik";
 import { Dispatch } from "redux";
 import { typeValuesBook } from "../../@types";
-import { constantsBooks } from "../constants";
+import { constantsAlert, constantsBooks } from "../constants";
 import { servicesBooks } from "../services";
 
 function paginationBooks(numPage: number) {
@@ -32,10 +32,18 @@ function addBook(
       const response = await servicesBooks.postBooks(values);
       if (typeof response.isAxiosError === "undefined") {
         dispatch(constantsBooks.SUCCESS_BOOK(response));
-        console.log(response.message);
         dispatch(paginationBooks(1));
         handleCloseModal("add");
         actionFormik.resetForm();
+        dispatch(
+          constantsAlert.VIEW({
+            message: response.message,
+            description: "",
+            duration: 5,
+            placement: "topRight",
+            type: "success",
+          })
+        );
       } else {
         console.log("error", response.response.data.message);
         dispatch(constantsBooks.FAILURE_BOOK());
@@ -58,10 +66,18 @@ function editBook(
     try {
       const response = await servicesBooks.putBooks(values, id);
       if (typeof response.isAxiosError === "undefined") {
-        console.log(response.message);
         handleCloseModal("edit");
         dispatch(paginationBooks(1));
         dispatch(constantsBooks.SUCCESS_BOOK(response));
+        dispatch(
+          constantsAlert.VIEW({
+            message: response.message,
+            description: "",
+            duration: 5,
+            placement: "topRight",
+            type: "success",
+          })
+        );
       } else {
         console.log("error", response.response.data.message);
         dispatch(constantsBooks.FAILURE_BOOK());
@@ -80,8 +96,16 @@ function deleteBook(id: number) {
       const response = await servicesBooks.deleteBooks(id);
       if (typeof response.isAxiosError === "undefined") {
         dispatch(paginationBooks(1));
-        console.log("success: ", response.message);
         dispatch(constantsBooks.SUCCESS_BOOK(response));
+        dispatch(
+          constantsAlert.VIEW({
+            message: response.message,
+            description: "",
+            duration: 5,
+            placement: "topRight",
+            type: "success",
+          })
+        );
       } else {
         console.log("error", response.response.data.message);
         dispatch(constantsBooks.FAILURE_BOOK());

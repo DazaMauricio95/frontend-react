@@ -1,14 +1,25 @@
 import { FormikHelpers } from "formik";
 import { Dispatch } from "redux";
 import { typeValuesRentals } from "../../@types";
-import { constantsRentals } from "../constants";
+import { constantsAlert, constantsRentals } from "../constants";
 import { servicesRentals } from "../services";
 import { actionsBooks } from "./books.action";
-// import {} from "../constants";
-// import {} from "../services";
 
 function paginationRentals(numPage: number) {
-  return async (dispatch: Dispatch) => {};
+  return async (dispatch: Dispatch) => {
+    dispatch(constantsRentals.BEGIN_RENTALS());
+    try {
+      const response = await servicesRentals.getRentals(numPage);
+      if (typeof response.isAxiosError === "undefined") {
+        dispatch(constantsRentals.PAGINATION_RENTALS(response.data));
+      } else {
+        dispatch(constantsRentals.FAILURE_RENTALS());
+      }
+    } catch (error) {
+      dispatch(constantsRentals.FAILURE_RENTALS());
+      throw error;
+    }
+  };
 }
 
 function addRental(
@@ -21,11 +32,19 @@ function addRental(
     try {
       const response = await servicesRentals.postRentals(values);
       if (typeof response.isAxiosError === "undefined") {
-        console.log(response.message);
         dispatch(actionsBooks.paginationBooks(1));
         dispatch(constantsRentals.SUCCESS_RENTALS(response));
         handleCloseModal("rent");
         actionFormik.resetForm();
+        dispatch(
+          constantsAlert.VIEW({
+            message: response.message,
+            description: "",
+            duration: 5,
+            placement: "topRight",
+            type: "success",
+          })
+        );
       } else {
         console.log("error", response.response.data.message);
         dispatch(constantsRentals.FAILURE_RENTALS());

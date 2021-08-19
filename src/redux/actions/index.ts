@@ -4,3 +4,4 @@ export * from "./login.action";
 export * from "./books.action";
 export * from "./categories.action";
 export * from "./rentals.action";
+export * from "./alert.action";

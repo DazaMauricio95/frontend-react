@@ -7,3 +7,4 @@ export * from "./books.type";
 export * from "./categories.type";
 export * from "./rentals.type";
 export * from "./options.type";
+export * from "./alert.type";

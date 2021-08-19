@@ -1,14 +1,22 @@
 import { CssBaseline, MuiThemeProvider } from "@material-ui/core";
 import { HashRouter, Route, Switch, Redirect, Router } from "react-router-dom";
-import { UseHookTheme, UseHookLogin } from "./hooks";
+import { UseHookTheme, UseHookLogin, UseHookAlert } from "./hooks";
 import { history, PrivateRoute, PublicRoute, themeMaterial } from "./utils";
 import TheLayout from "./containers/layout";
 import LoginModule from "./modules/login";
 import RegisterModule from "./modules/register";
 import { modelUser } from "./models";
+import { useEffect } from "react";
+import { openAlert } from "./components";
 function App() {
   const { authentication } = UseHookLogin();
   const { themeIsDark } = UseHookTheme();
+  const { valuesAlert } = UseHookAlert();
+  useEffect(() => {
+    if (valuesAlert !== null) {
+      openAlert(valuesAlert);
+    }
+  }, [valuesAlert]);
   if (
     localStorage.getItem("@token") != null &&
     localStorage.getItem("@userData") != null
