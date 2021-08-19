@@ -1,0 +1,5 @@
+export * from "./register.service"
+export * from "./login.service"
+export * from "./categories.service"
+export * from "./books.service"
+export * from "./rentals.service"
