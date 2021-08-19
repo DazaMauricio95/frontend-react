@@ -32,14 +32,16 @@ const BooksModule = () => {
     formAddBook,
     formEditBook,
     idBook,
+    dataBook,
   } = UseHookBooks();
   const { optionsCategories, callbackAllCategories, loadingCategory } =
     UseHookCategories();
   const { loadingRental, formAddRent, formDataRent, formSchemaRent } =
-    UseHookRentals();
+    UseHookRentals(dataBook.idBook);
   useEffect(() => {
     callbackBooks();
   }, [callbackBooks]);
+
   return (
     <Grid container className={classes.rootPage}>
       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -175,6 +177,7 @@ const BooksModule = () => {
           formAddRent={formAddRent}
           formDataRent={formDataRent}
           formSchemaRent={formSchemaRent}
+          dataBook={dataBook}
         />
       )}
     </Grid>

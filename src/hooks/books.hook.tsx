@@ -8,10 +8,11 @@ import {
 import * as Yup from "yup";
 import { ChangeEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { stateSelector, typeValuesBook } from "../@types";
+import { stateSelector, typeValuesBook, typeDataBook } from "../@types";
 import { actionsBooks } from "../redux/actions";
 import { modelUser } from "../models";
 import { FormikHelpers } from "formik";
+
 export const UseHookBooks = () => {
   const dispatch = useDispatch();
   const { loadingBook, disabledBook, responseBooks, dataBooks, messageBooks } =
@@ -19,6 +20,10 @@ export const UseHookBooks = () => {
   const [numPage, setNumPage] = useState<number>(1);
   const [idBook, setIdBook] = useState<number>(0);
   const [openModal, setOpenModal] = useState({ type: "", open: false });
+  const [dataBook, setDataBook] = useState<typeDataBook>({
+    idBook: null,
+    nameBook: "",
+  });
 
   const callbackBooks = useCallback(
     async () => dispatch(actionsBooks.paginationBooks(numPage)),
@@ -84,14 +89,16 @@ export const UseHookBooks = () => {
         filter: false,
         viewColumns: false,
         customBodyRender: (value, tableMeta) => {
+          let idBook = value;
           let nameBook = tableMeta.rowData[0];
+          let rent = tableMeta.rowData[4];
           return (
             <Box display="flex">
               <Tooltip title={"Editar el libro " + nameBook}>
                 <IconButton
                   size="small"
                   aria-label="edit"
-                  onClick={() => openModalEdit(value)}
+                  onClick={() => openModalEdit(idBook)}
                 >
                   <EditIcon fontSize="small" />
                 </IconButton>
@@ -100,22 +107,25 @@ export const UseHookBooks = () => {
                 <IconButton
                   size="small"
                   aria-label="delete"
-                  onClick={() => dispatch(actionsBooks.deleteBook(value))}
+                  onClick={() => dispatch(actionsBooks.deleteBook(idBook))}
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
-              <Tooltip title={"Alquilar " + nameBook}>
-                <IconButton
-                  size="small"
-                  aria-label="rent"
-                  onClick={() => {
-                    console.log(value, tableMeta), handleOpenModal("rent");
-                  }}
-                >
-                  <LibraryIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
+              {rent === 1 && (
+                <Tooltip title={"Alquilar " + nameBook}>
+                  <IconButton
+                    size="small"
+                    aria-label="rent"
+                    onClick={() => {
+                      setDataBook({ idBook: idBook, nameBook: nameBook });
+                      handleOpenModal("rent");
+                    }}
+                  >
+                    <LibraryIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              )}
             </Box>
           );
         },
@@ -185,5 +195,6 @@ export const UseHookBooks = () => {
     formAddBook,
     formEditBook,
     idBook,
+    dataBook,
   };
 };

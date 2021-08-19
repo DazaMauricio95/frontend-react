@@ -37,6 +37,7 @@ function addBook(
         handleCloseModal("add");
         actionFormik.resetForm();
       } else {
+        console.log("error", response.response.data.message);
         dispatch(constantsBooks.FAILURE_BOOK());
       }
     } catch (error) {
@@ -62,6 +63,7 @@ function editBook(
         dispatch(paginationBooks(1));
         dispatch(constantsBooks.SUCCESS_BOOK(response));
       } else {
+        console.log("error", response.response.data.message);
         dispatch(constantsBooks.FAILURE_BOOK());
       }
     } catch (error) {

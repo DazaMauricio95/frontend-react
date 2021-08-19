@@ -306,4 +306,7 @@ export default makeStyles((theme: Theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  dividerFullWidth: {
+    margin: `5px 0 0 ${theme.spacing(2)}px`,
+  },
 }));

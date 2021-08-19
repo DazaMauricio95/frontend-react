@@ -1,10 +1,12 @@
 import { FormikHelpers } from "formik";
 import { MUIDataTableColumnDef } from "mui-datatables";
 import { ChangeEvent, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { stateSelector, typeValuesRentals } from "../@types";
-export const UseHookRentals = () => {
+import { actionsRentals } from "../redux/actions";
+export const UseHookRentals = (idBook?: number | null) => {
+  const dispatch = useDispatch();
   const {
     loadingRental,
     disabledRental,
@@ -40,12 +42,20 @@ export const UseHookRentals = () => {
   function handleNextPage(event: ChangeEvent<unknown>, value: number) {
     setNumPage(value);
   }
+  const d = new Date();
+
+  var datestring =
+    d.getFullYear() +
+    "-" +
+    ("0" + (d.getMonth() + 1)).slice(-2) +
+    "-" +
+    ("0" + d.getDate()).slice(-2);
 
   const formDataRent: typeValuesRentals = {
-    Fkidbook: null,
+    Fkidbook: typeof idBook !== "undefined" ? idBook : null,
     name: "",
     lastname: "",
-    rentDate: "",
+    rentDate: datestring,
     returnDate: "",
   };
 
@@ -64,9 +74,7 @@ export const UseHookRentals = () => {
     actionFormik: FormikHelpers<typeValuesRentals>,
     handleCloseModal: any
   ) {
-    console.log("handle rent:", values);
-    // delete values.valueCategory;
-    // dispatch(actionsBooks.addBook(values, actionFormik, handleCloseModal));
+    dispatch(actionsRentals.addRental(values, actionFormik, handleCloseModal));
   }
 
   return {

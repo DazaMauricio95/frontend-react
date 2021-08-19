@@ -70,3 +70,8 @@ export type typeValuesBook = {
   Fkidcreador: number | null;
   valueCategory?: typeOption;
 };
+
+export type typeDataBook = {
+  idBook: number | null;
+  nameBook: string;
+};

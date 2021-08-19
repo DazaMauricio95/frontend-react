@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { Close as CloseIcon } from "@material-ui/icons";
 import { Formik, Form, FormikHelpers } from "formik";
-import { typeValuesRentals } from "../../@types";
+import { typeValuesRentals, typeDataBook } from "../../@types";
 import UseStyles from "../../styles";
 import { Transition } from "../../utils";
 type ModalProps = {
@@ -27,6 +27,7 @@ type ModalProps = {
   ) => void;
   formDataRent: typeValuesRentals;
   formSchemaRent: any;
+  dataBook: typeDataBook;
 };
 const ModalRent = ({ ...props }: ModalProps) => {
   const classes = UseStyles();
@@ -37,6 +38,7 @@ const ModalRent = ({ ...props }: ModalProps) => {
     formAddRent,
     formDataRent,
     formSchemaRent,
+    dataBook,
   } = props;
   return (
     <Dialog
@@ -66,7 +68,7 @@ const ModalRent = ({ ...props }: ModalProps) => {
                   <CloseIcon />
                 </IconButton>
                 <Typography component="p" style={{ flex: 1 }}>
-                  Alquilar libro
+                  Alquilar libro "{dataBook.nameBook}"
                 </Typography>
                 <Button
                   disabled={loadingRental}
@@ -79,6 +81,17 @@ const ModalRent = ({ ...props }: ModalProps) => {
               </Toolbar>
             </AppBar>
             <List>
+              <Divider component="li" />
+              <li>
+                <Typography
+                  className={classes.dividerFullWidth}
+                  color="textSecondary"
+                  display="block"
+                  variant="caption"
+                >
+                  Datos del usuario
+                </Typography>
+              </li>
               <ListItem>
                 <TextField
                   id="name"
@@ -92,13 +105,12 @@ const ModalRent = ({ ...props }: ModalProps) => {
                   onChange={(e) => setFieldValue("name", e.target.value)}
                   error={errors.name ? true : false}
                   margin="normal"
-                  placeholder="Nombre"
+                  placeholder="Nombre de quién alquilará el libro"
                   type="name"
                   fullWidth
                   helperText={errors.name ? errors.name : ""}
                 />
               </ListItem>
-              <Divider />
               <ListItem>
                 <TextField
                   id="lastname"
@@ -118,7 +130,17 @@ const ModalRent = ({ ...props }: ModalProps) => {
                   helperText={errors.lastname ? errors.lastname : ""}
                 />
               </ListItem>
-              <Divider />
+              <Divider component="li" />
+              <li>
+                <Typography
+                  className={classes.dividerFullWidth}
+                  color="textSecondary"
+                  display="block"
+                  variant="caption"
+                >
+                  Datos del alquiler
+                </Typography>
+              </li>
               <ListItem>
                 <TextField
                   id="rentDate"
@@ -138,9 +160,9 @@ const ModalRent = ({ ...props }: ModalProps) => {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  disabled
                 />
               </ListItem>
-              <Divider />
               <ListItem>
                 <TextField
                   id="returnDate"

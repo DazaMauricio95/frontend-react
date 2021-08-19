@@ -24,6 +24,7 @@ import { TheHeaderProps } from "../utils";
 import { UseHookTheme, UseHookLogin } from "../hooks";
 import { modelUser } from "../models";
 import { config } from "../config";
+import { memo } from "react";
 
 export type Anchor = "top" | "left" | "bottom" | "right";
 
@@ -146,4 +147,4 @@ const TheHeader = ({ history }: TheHeaderProps) => {
   );
 };
 
-export default TheHeader;
+export default memo(TheHeader);
