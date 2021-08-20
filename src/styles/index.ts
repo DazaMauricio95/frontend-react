@@ -89,8 +89,8 @@ export default makeStyles((theme: Theme) => ({
     display: "block",
   },
   avatarProfile: {
-    width: 150,
-    height: 150,
+    width: "150px !important",
+    height: "150px !important",
     // backgroundColor: "red"
   },
   avatarImg: {
@@ -322,11 +322,11 @@ export default makeStyles((theme: Theme) => ({
     margin: `5px 0 0 ${theme.spacing(2)}px`,
   },
   badgeDanger: {
-    backgroundColor: theme.palette.error.main,
-    color: "white",
+    backgroundColor: theme.palette.error.main + " !important",
+    color: "white  !important",
   },
   badgeSuccess: {
-    backgroundColor: "#3ea046",
-    color: "white",
+    backgroundColor: "#3ea046 !important",
+    color: "white  !important",
   },
 }));

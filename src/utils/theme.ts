@@ -40,6 +40,12 @@ export function themeMaterial(themeIsDark: boolean) {
           },
         },
       },
+      MuiAppBar: {
+        root: {
+          width: "100vw",
+          zIndex: 1201,
+        },
+      },
     },
   });
   return theme;
