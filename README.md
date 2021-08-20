@@ -4,8 +4,8 @@
 <h3>Entorno local</h3> 
 <ul>
     <li>Ejecutar el siguiente comando para descargar las dependencias <strong>npm install</strong></li>
-    <li>Cambiar la variable "urlApi" y "urlPublic" para consumir el API REST en el siguiente archivo: <strong>src/config/config.ts</strong></li>
-    <li>Ejecutar el siguiente comando para iniciar el proyecto<strong>npm start</strong></li> 
+    <li>Cambiar la variable "urlApi" y "urlPublic" de Producción a TEST para consumir el API REST en el entorno local en el siguiente archivo: <strong>src/config/config.ts</strong></li>
+    <li>Ejecutar el siguiente comando para iniciar el proyecto <strong>npm start</strong></li> 
 </ul>
 <h3>Entorno Producción</h3>
 <ul>
