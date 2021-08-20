@@ -46,7 +46,6 @@ function addRental(
           })
         );
       } else {
-        console.log("error", response.response.data.message);
         dispatch(constantsRentals.FAILURE_RENTALS());
       }
     } catch (error) {

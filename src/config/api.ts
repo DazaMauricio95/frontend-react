@@ -3,7 +3,7 @@ import { modelUser } from "../models";
 import { config } from "./config";
 import store from "../redux/store";
 import { constantsAlert } from "../redux/constants";
-import { actionsLogin } from "../redux/actions";
+// import { actionsLogin } from "../redux/actions";
 const timeout = 9000;
 const { dispatch }: any = store;
 const api = axios.create({
@@ -39,7 +39,7 @@ const errorHandler = (error: AxiosError) => {
   if (typeof error.response !== "undefined") {
     if (error.response.status === 401) {
       message = "No autorizado.";
-      dispatch(actionsLogin.logoutUser());
+      //   dispatch(actionsLogin.logoutUser());
     } else if (error.response.status === 404) {
       message = "Falta la ruta API o no está definida";
     } else if (error.response.status === 405) {

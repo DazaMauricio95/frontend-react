@@ -58,7 +58,6 @@ function logoutUser() {
         );
       } else {
         dispatch(constantsLogin.FAILURE_LOGIN());
-        console.log("AXIOS ERROR: ", response);
       }
     } catch (error) {
       throw error;

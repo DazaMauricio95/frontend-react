@@ -45,7 +45,6 @@ function addBook(
           })
         );
       } else {
-        console.log("error", response.response.data.message);
         dispatch(constantsBooks.FAILURE_BOOK());
       }
     } catch (error) {
@@ -79,7 +78,6 @@ function editBook(
           })
         );
       } else {
-        console.log("error", response.response.data.message);
         dispatch(constantsBooks.FAILURE_BOOK());
       }
     } catch (error) {
@@ -107,7 +105,6 @@ function deleteBook(id: number) {
           })
         );
       } else {
-        console.log("error", response.response.data.message);
         dispatch(constantsBooks.FAILURE_BOOK());
       }
     } catch (error) {
